@@ -111,28 +111,33 @@
       font-size: 1rem;
       line-height: 1.5;
     }
-    .status {
+
+    div[data-status] {
       display: inline-block;
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      margin-left: 5px; /* Space between title and dot */
+      margin-left: 10px; /* Space between title and dot */
+      transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left; /* Scale towards the right */
     }
 
-    .status.up {
-      background-color: green; /* Green dot for up status */
+    div[data-status="loading"] {
+      background-color: grey;
+      pointer-events: none;
     }
 
-    .status.down {
-      background-color: red; /* Red dot for down status */
+    div[data-status="up"] {
+      background-color: #66bb6a;
     }
 
-    .status.unknown {
-      background-color: orange;
+    div[data-status="down"] {
+      background-color: red;
     }
 
-    .card:hover {
-      transform: scale(110%);
+    div[data-status="up"]:hover,
+    div[data-status="down"]:hover {
+      transform: scale(200%);
     }
   </style>
 
@@ -143,12 +148,16 @@
         image:
           "https://jumpcloud.com/wp-content/uploads/2023/03/jumpcloud.png",
         link: "https://console.jumpcloud.com/#/",
+        //SAAR: Even google.com exists it is prohibited to make get request from code because of CORS restriction.
+        //You need to add statusLink to every entry.
+        statusLink: "https://google.com"
       },
       {
         title: "JumpCloud UserPortal",
         image:
           "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
         link: "https://console.jumpcloud.com/userconsole#/",
+        statusLink: "https://google.com"
       },
     ];
     const cardConfig2 = [
@@ -289,6 +298,7 @@
 
     function createCard(config) {
       const card = document.createElement("a");
+      card.setAttribute('data-title', config.title)
       card.classList.add("card");
       card.href = config.link;
       card.target = "_blank";
@@ -302,8 +312,7 @@
       title.textContent = config.title;
 
       const statusDot = document.createElement("div");
-      statusDot.classList.add("status", "unknown"); // Set default as 'unknown'
-      statusDot.classList.add(config.status === 'Up' ? 'up' : 'down'); // Placeholder, initially assume down
+      statusDot.setAttribute('data-status', 'loading');
       title.appendChild(statusDot);
       imageWrapper.appendChild(image);
       card.appendChild(imageWrapper);
@@ -312,32 +321,40 @@
       return card;
     }
 
-    async function checkServiceStatus(card) {
-      try {
-        const response = await fetch(card.link, { mode: "no-cors" });
-        const cardElement = document.querySelector(`a[href='${card.link}']`);
-        const statusDot = cardElement.querySelector(".status");
+    function renderStatusColor(cards) {
+      cards.forEach(card => {
+        const cardElement = document.querySelector(`a[data-title='${card.title}']`)
+        const statusDot = cardElement.querySelector('[data-status]');
 
-        if (response.type === "opaque" || response.ok) {
-          card.status = "Up"; 
-          statusDot.className = "status up"; 
-        } else {
-          card.status = "Down"; 
-          statusDot.className = "status down";
-        }
-      } catch (error) {
-        const cardElement = document.querySelector(`a[href='${card.link}']`);
-        const statusDot = cardElement.querySelector(".status");
-        card.status = "Down"; 
-        statusDot.className = "status down"; 
-      }
+        statusDot.setAttribute('data-status', card.status);
+        statusDot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+                  window.open(card.statusLink, '_blank');
+          }
+        )
+      })
     }
 
     function startStatusCheck(cards) {
-      cards.forEach((card) => checkServiceStatus(card)); // Initial immediate check
-      setInterval(() => {
-        cards.forEach((card) => checkServiceStatus(card));
-      }, 15000); 
+      const cardsWithStatuses = [];
+      let countFinished = 0;
+      for (let i = 0; i < cards.length; i++) {
+        const config = cards[i];
+        fetch(config.statusLink ?? 'http://localhost:8080').then(() => {
+          cardsWithStatuses.push({...config, status: 'up'})
+          countFinished += 1;
+          if (countFinished === cards.length) {
+            renderStatusColor(cardsWithStatuses);
+          }
+        }).catch(() => {
+          cardsWithStatuses.push({...config, status: 'down'})
+          countFinished += 1;
+          if (countFinished === cards.length) {
+            renderStatusColor(cardsWithStatuses);
+          }
+        })
+      }
     }
     function renderAllCards(id, config) {
       const content = document.querySelector(id);
@@ -367,9 +384,11 @@
     renderAllCards("#content-3", cardConfig3);
     renderAllCards("#content-4", cardConfig4);
     renderAllCards("#content-5", cardConfig5);
+
     startStatusCheck(cardConfig);
     startStatusCheck(cardConfig2);
     startStatusCheck(cardConfig3);
     startStatusCheck(cardConfig4);
+    startStatusCheck(cardConfig5);
     </script>
 </html>
