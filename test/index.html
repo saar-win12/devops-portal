@@ -1,15 +1,20 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>DevOps</title>
-    <link rel="icon" type="image/svg+xml" href='https://www.loora.ai/favicon.png' />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>DevOps</title>
+  <link
+          rel="icon"
+          type="image/svg+xml"
+          href="https://www.loora.ai/favicon.png"
+  />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * {
       font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -17,24 +22,24 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
-      min-height: 100dvh;
-      height: 100%;
-      background: #fff;
+      font-family: Arial, sans-serif;
       padding: 20px;
+      background-color: #f0f0f0;
     }
 
-    .title-box {
+    .app {
+      width: 100%;
+      margin: auto;
+    }
+
+    .section-header {
       text-align: center;
       font-size: 2rem;
       font-weight: bold;
       padding: 20px;
-      background: linear-gradient(
-        to bottom right,
-        hsla(210, 100%, 96%, 0.3) 25%,
-        hsla(215, 15%, 97%, 0.2) 100%
-      );
-      border: 1px solid hsl(215, 15%, 92%);
+      background: #fff;
       border-radius: 12px;
 
       color: hsl(215, 15%, 12%);
@@ -42,334 +47,369 @@
       margin: 40px auto 20px auto;
     }
 
-    .content {
-      max-width: 1050px;
-      margin: 0 auto 80px auto;
+    .section {
+      margin: 0 auto 40px;
+      max-width: 720px;
+    }
+
+    .cards {
+      display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 30px;
       justify-content: center;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      grid-template-rows: 1fr;
-      align-items: stretch;
+      width: 100%;
+    }
+
+    .card-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .card {
       position: relative;
-      text-decoration: none;
-      flex-basis: 140px;
-      flex-shrink: 0;
+      flex: 1 1 auto;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
       box-shadow:
-        rgb(255, 255, 255) 0 2px 0px inset,
-        rgba(232, 234, 238, 0.3) 0px -2px 0px inset,
-        rgba(223, 226, 231, 0.5) 0px 1px 2px 0px;
+              rgb(255, 255, 255) 0 2px 0px inset,
+              rgba(232, 234, 238, 0.3) 0px -2px 0px inset,
+              rgba(223, 226, 231, 0.5) 0px 1px 2px 0px;
 
       color: hsl(215, 15%, 12%);
-      display: block;
       border-radius: 12px;
       border: 1px solid hsl(215, 15%, 92%);
-      transform: scale(100%);
       transition:
-        border 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-        box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-        transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+              border 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+              box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+              transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       padding: 28px;
-      background: linear-gradient(
-        to bottom right,
-        hsla(210, 100%, 96%, 0.3) 25%,
-        hsla(215, 15%, 97%, 0.2) 100%
-      );
+      background: #fff;
     }
 
     .card:hover {
-      text-decoration: underline;
       border-color: hsl(210, 100%, 80%);
-      box-shadow: 0px 2px 8px hsl(210, 100%, 90%);
+      box-shadow: 0 2px 8px hsl(210, 100%, 90%);
     }
 
-    .image-wrapper {
+    .card img {
       width: 80px;
       height: 80px;
       overflow: hidden;
       margin: 0 auto;
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
       object-fit: contain;
     }
 
-    .title {
-      text-align: center;
-      color: hsl(215, 15%, 12%);
-      font-weight: bold;
-      margin-top: 20px;
-      font-size: 1rem;
-      line-height: 1.5;
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
     }
-    .status {
-      display: inline-block;
+
+    .card-status-links {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 20px;
+      padding: 0 20px;
+    }
+
+    .card-status-links .status-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: grey;
+    }
+
+    .card-status-links .status-item:hover {
+      color: unset;
+      text-decoration: underline;
+    }
+
+    .card-status-links .status-item span {
+      margin-right: 8px;
+    }
+
+    .card-status-links .status-dot {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      margin-left: 5px; /* Space between title and dot */
+      display: inline-block;
     }
 
-    .status.up {
-      background-color: green; /* Green dot for up status */
+    .loading {
+      background-color: grey;
     }
 
-    .status.down {
-      background-color: red; /* Red dot for down status */
+    .success {
+      background-color: green;
     }
 
-    .status.unknown {
-      background-color: orange;
-    }
-
-    .card:hover {
-      transform: scale(110%);
+    .error {
+      background-color: red;
     }
   </style>
+</head>
+<body>
+<div id="app" class="app">
+  <div v-for="group in cardGroups" :key="group.id" class="section">
+    <h2 class="section-header">{{ group.title }}</h2>
+    <div class="cards">
+      <div
+              v-for="item in group.cards"
+              :key="item.title"
+              class="card-wrapper"
+      >
+        <div class="card">
+          <img :src="item.image" :alt="item.title" />
+          <h3>{{ item.title }}</h3>
+          <a :href="item.link" target="_blank">Visit Portal</a>
+        </div>
+        <div class="card-status-links">
+          <a
+                  v-for="status in item.statusLinks"
+                  :href="status.link"
+                  target="_blank"
+                  :key="status.link"
+                  class="status-item"
+          >
+            <span>{{ status.label }}</span>
+            <div :class="['status-dot', status.state]"></div>
+          </a>
+        </div>
 
-  <script>
-    const cardConfig = [
-      {
-        title: "JumpCloud AdminPortal",
-        image:
-          "https://jumpcloud.com/wp-content/uploads/2023/03/jumpcloud.png",
-        link: "https://console.jumpcloud.com/#/",
-      },
-      {
-        title: "JumpCloud UserPortal",
-        image:
-          "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
-        link: "https://console.jumpcloud.com/userconsole#/",
-      },
-    ];
-    const cardConfig2 = [
-      {
-        title: "Jaeger",
-        image:
-          "https://www.jaegertracing.io/img/jaeger-icon-reverse-color.svg",
-        link: "https://jaeger.data.internal.loora.tech"
-      },
-      {
-        title: "Prometheus",
-        image:
-          "https://www.gravatar.com/avatar/63f4dc6944f814f3b2440a3c41dd400b?s=120&r=g&d=404",
-        link: "https://prometheus.data.internal.loora.tech"
-      },
-      {
-        title: "Thanos",
-        image:
-          "https://i1.daumcdn.net/thumb/C300x300/?fname=https://blog.kakaocdn.net/dn/bTRdIg/btslufCL7gc/38sihyfShQTmELvFOmc5DK/img.png",
-        link: "https://thanos.data.internal.loora.tech"
-      },
-      {
-        title: "AlertManager",
-        image:
-          "https://play-lh.googleusercontent.com/HhuDvidUsvztQYHv2Ah9PU6xTilfcJvlVqYGGJuxK0U0Tygwns5ZdCRhLxE-Bwf4KQ",
-        link: "https://alertmanager.data.internal.loora.tech"
-      },
-      {
-        title: "Grafana Data",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grafana_icon.svg/1969px-Grafana_icon.svg.png",
-        link: "https://grafana.data.internal.loora.tech",
-      },
-      {
-        title: "ArgoCD Data",
-        image:
-          "https://icon.icepanel.io/Technology/svg/Argo-CD.svg",
-        link: "https://argocd.data.internal.loora.tech",
-      },
-      {
-        title: "AirFlow Data",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/AirflowLogo.png/1200px-AirflowLogo.png",
-        link: "https://airflow.data.internal.loora.tech",
-      },
-    ];
-    const cardConfig3 = [
-      {
-        title: "Jaeger",
-        image:
-          "https://www.jaegertracing.io/img/jaeger-icon-reverse-color.svg",
-        link: "https://jaeger.dev.internal.loora.tech"
-      },
-      {
-        title: "Prometheus",
-        image:
-          "https://www.gravatar.com/avatar/63f4dc6944f814f3b2440a3c41dd400b?s=120&r=g&d=404",
-        link: "https://prometheus.dev.internal.loora.tech"
-      },
-      {
-        title: "Thanos",
-        image:
-          "https://i1.daumcdn.net/thumb/C300x300/?fname=https://blog.kakaocdn.net/dn/bTRdIg/btslufCL7gc/38sihyfShQTmELvFOmc5DK/img.png",
-        link: "https://thanos.dev.internal.loora.tech"
-      },
-      {
-        title: "AlertManager",
-        image:
-          "https://play-lh.googleusercontent.com/HhuDvidUsvztQYHv2Ah9PU6xTilfcJvlVqYGGJuxK0U0Tygwns5ZdCRhLxE-Bwf4KQ",
-        link: "https://alertmanager.dev.internal.loora.tech"
-      },
-      {
-        title: "Grafana Dev",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grafana_icon.svg/1969px-Grafana_icon.svg.png",
-        link: "https://grafana.dev.internal.loora.tech",
-      },
-      {
-        title: "ArgoCD Dev",
-        image:
-          "https://icon.icepanel.io/Technology/svg/Argo-CD.svg",
-        link: "https://argocd.dev.internal.loora.tech",
-      },
-    ];
-    const cardConfig4 = [
-      {
-        title: "Jaeger",
-        image:
-          "https://www.jaegertracing.io/img/jaeger-icon-reverse-color.svg",
-        link: "https://jaeger.staging.internal.loora.tech"
-      },
-      {
-        title: "Prometheus",
-        image:
-          "https://www.gravatar.com/avatar/63f4dc6944f814f3b2440a3c41dd400b?s=120&r=g&d=404",
-        link: "https://prometheus.staging.internal.loora.tech"
-      },
-      {
-        title: "Thanos",
-        image:
-          "https://i1.daumcdn.net/thumb/C300x300/?fname=https://blog.kakaocdn.net/dn/bTRdIg/btslufCL7gc/38sihyfShQTmELvFOmc5DK/img.png",
-        link: "https://thanos.staging.internal.loora.tech"
-      },
-      {
-        title: "AlertManager",
-        image:
-          "https://play-lh.googleusercontent.com/HhuDvidUsvztQYHv2Ah9PU6xTilfcJvlVqYGGJuxK0U0Tygwns5ZdCRhLxE-Bwf4KQ",
-        link: "https://alertmanager.staging.internal.loora.tech"
-      },
-      {
-        title: "Grafana Staging",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grafana_icon.svg/1969px-Grafana_icon.svg.png",
-        link: "https://grafana.staging.internal.loora.tech",
-      },
-      {
-        title: "ArgoCD Staging",
-        image:
-          "https://icon.icepanel.io/Technology/svg/Argo-CD.svg",
-        link: "https://argocd.staging.internal.loora.tech",
-      },
-    ];
+        <!-- Rendering Status Links with Fetch Results -->
+      </div>
+    </div>
+  </div>
+</div>
 
-    const cardConfig5 = [
-      {
-        title: "IAC",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
-        link: "https://github.com/Loora-ai/loora-iac/actions"
-      },
-      {
-        title: "K8S deployments",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
-        link: "https://github.com/Loora-ai/loora-k8s-deployments/actions"
-      },
-    ];
-
-    function createCard(config) {
-      const card = document.createElement("a");
-      card.classList.add("card");
-      card.href = config.link;
-      card.target = "_blank";
-      const imageWrapper = document.createElement("div");
-      imageWrapper.classList.add("image-wrapper");
-      const image = document.createElement("img");
-      image.src = config.image;
-      image.alt = config.title;
-      const title = document.createElement("div");
-      title.classList.add("title");
-      title.textContent = config.title;
-
-      const statusDot = document.createElement("div");
-      statusDot.classList.add("status", "unknown"); // Set default as 'unknown'
-      statusDot.classList.add(config.status === 'Up' ? 'up' : 'down'); // Placeholder, initially assume down
-      title.appendChild(statusDot);
-      imageWrapper.appendChild(image);
-      card.appendChild(imageWrapper);
-      card.appendChild(title);
-      
-      return card;
-    }
-
-    async function checkServiceStatus(card) {
-      try {
-        const response = await fetch(card.link, { mode: "no-cors" });
-        const cardElement = document.querySelector(`a[href='${card.link}']`);
-        const statusDot = cardElement.querySelector(".status");
-
-        if (response.type === "opaque" || response.ok) {
-          card.status = "Up"; 
-          statusDot.className = "status up"; 
-        } else {
-          card.status = "Down"; 
-          statusDot.className = "status down";
-        }
-      } catch (error) {
-        const cardElement = document.querySelector(`a[href='${card.link}']`);
-        const statusDot = cardElement.querySelector(".status");
-        card.status = "Down"; 
-        statusDot.className = "status down"; 
-      }
-    }
-
-    function startStatusCheck(cards) {
-      cards.forEach((card) => checkServiceStatus(card)); // Initial immediate check
-      setInterval(() => {
-        cards.forEach((card) => checkServiceStatus(card));
-      }, 15000); 
-    }
-    function renderAllCards(id, config) {
-      const content = document.querySelector(id);
-      config.forEach((config) => {
-        const card = createCard(config);
-        content.appendChild(card);
+<script src="https://unpkg.com/vue@3"></script>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        cardGroups: [
+          {
+            id: 1,
+            title: "Admin Portals",
+            cards: [
+              {
+                title: "JumpCloud AdminPortal",
+                image:
+                        "https://jumpcloud.com/wp-content/uploads/2023/03/jumpcloud.png",
+                link: "https://console.jumpcloud.com/#/",
+                statusLinks: [
+                  {
+                    link: "https://status.jumpcloud.com",
+                    label: "API Server",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.aws.amazon.com/",
+                    label: "Database",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.aws.amazon.com/",
+                    label: "Cache Service",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.aws.amazon.com/",
+                    label: "Authentication Service",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.aws.amazon.com/",
+                    label: "Messaging Queue",
+                    state: "loading",
+                  },
+                ],
+              },
+              {
+                title: "JumpCloud AdminPortal",
+                image:
+                        "https://jumpcloud.com/wp-content/uploads/2023/03/jumpcloud.png",
+                link: "https://console.jumpcloud.com/#/",
+                statusLinks: [
+                  {
+                    link: "https://status.jumpcloud.com",
+                    label: "API Server",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.aws.amazon.com/",
+                    label: "Messaging Queue",
+                    state: "loading",
+                  },
+                ],
+              },
+              {
+                title: "JumpCloud AdminPortal",
+                image:
+                        "https://jumpcloud.com/wp-content/uploads/2023/03/jumpcloud.png",
+                link: "https://console.jumpcloud.com/#/",
+                statusLinks: [
+                  {
+                    link: "https://status.jumpcloud.com",
+                    label: "API Server",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.aws.amazon.com/",
+                    label: "Database",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.aws.amazon.com/",
+                    label: "Cache Service",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.aws.amazon.com/",
+                    label: "Authentication Service",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.aws.amazon.com/",
+                    label: "Messaging Queue",
+                    state: "loading",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "User Portals",
+            cards: [
+              {
+                title: "JumpCloud UserPortal",
+                image:
+                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
+                link: "https://console.jumpcloud.com/userconsole#/",
+                statusLinks: [
+                  {
+                    link: "https://status.jumpcloud.com",
+                    label: "JumpCloud Status",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.google.com",
+                    label: "Google Status",
+                    state: "loading",
+                  },
+                ],
+              },
+              {
+                title: "JumpCloud UserPortal",
+                image:
+                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
+                link: "https://console.jumpcloud.com/userconsole#/",
+                statusLinks: [
+                  {
+                    link: "https://status.jumpcloud.com",
+                    label: "JumpCloud Status",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.google.com",
+                    label: "Google Status",
+                    state: "loading",
+                  },
+                ],
+              },
+              {
+                title: "JumpCloud UserPortal",
+                image:
+                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
+                link: "https://console.jumpcloud.com/userconsole#/",
+                statusLinks: [
+                  {
+                    link: "https://status.jumpcloud.com",
+                    label: "JumpCloud Status",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.google.com",
+                    label: "Google Status",
+                    state: "loading",
+                  },
+                ],
+              },
+              {
+                title: "JumpCloud UserPortal",
+                image:
+                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
+                link: "https://console.jumpcloud.com/userconsole#/",
+                statusLinks: [
+                  {
+                    link: "https://status.jumpcloud.com",
+                    label: "JumpCloud Status",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.google.com",
+                    label: "Google Status",
+                    state: "loading",
+                  },
+                ],
+              },
+              {
+                title: "JumpCloud UserPortal",
+                image:
+                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
+                link: "https://console.jumpcloud.com/userconsole#/",
+                statusLinks: [
+                  {
+                    link: "https://status.jumpcloud.com",
+                    label: "JumpCloud Status",
+                    state: "loading",
+                  },
+                  {
+                    link: "https://status.google.com",
+                    label: "Google Status",
+                    state: "loading",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+    },
+    mounted() {
+      this.cardGroups.forEach((group) => {
+        group.cards.forEach((card) => {
+          card.statusLinks.forEach((statusLink) => {
+            this.fetchStatus(statusLink);
+          });
+        });
       });
-    }
+    },
+    methods: {
+      async fetchStatus(statusLink) {
+        try {
+          // Make the fetch request
+          const response = await fetch(statusLink.link);
 
-  </script>
+          // If response is OK (status 2xx), set status to 'success'
+          if (response.ok) {
+            statusLink.state = "success";
+          } else {
+            // Otherwise, set it to 'error'
+            statusLink.state = "error";
+          }
+        } catch (error) {
+          // Handle network errors
+          statusLink.state = "error";
+        }
+      },
+    },
+  });
 
-  <body>
-    <div class="title-box">DevOps Portal</div>
-    <div id="content-1" class="content"></div>
-    <div class="title-box">Data Environment</div>
-    <div id="content-2" class="content"></div>
-    <div class="title-box">Dev Environment</div>
-    <div id="content-3" class="content"></div>
-    <div class="title-box">Staging Environment</div>
-    <div id="content-4" class="content"></div>
-    <div class="title-box">Github Actions</div>
-    <div id="content-5" class="content"></div>
-  </body>
-  <script>
-    renderAllCards("#content-1", cardConfig);
-    renderAllCards("#content-2", cardConfig2);
-    renderAllCards("#content-3", cardConfig3);
-    renderAllCards("#content-4", cardConfig4);
-    renderAllCards("#content-5", cardConfig5);
-    startStatusCheck(cardConfig);
-    startStatusCheck(cardConfig2);
-    startStatusCheck(cardConfig3);
-    startStatusCheck(cardConfig4);
-    </script>
+  app.mount("#app");
+</script>
+</body>
 </html>
