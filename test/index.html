@@ -1,415 +1,344 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta
-          name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-  />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>DevOps</title>
-  <link
-          rel="icon"
-          type="image/svg+xml"
-          href="https://www.loora.ai/favicon.png"
-  />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>DevOps</title>
+    <link rel="icon" type="image/svg+xml" href="https://www.loora.ai/favicon.png"/>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<style>
     * {
-      font-family: Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f0f0f0;
+        min-height: 100dvh;
+        height: 100%;
+        background: #fff;
+        padding: 20px;
     }
 
-    .app {
-      width: 100%;
-      margin: auto;
+    .title-box {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 20px;
+        background: linear-gradient(to bottom right, hsla(210, 100%, 96%, 0.3) 25%, hsla(215, 15%, 97%, 0.2) 100%);
+        border: 1px solid hsl(215, 15%, 92%);
+        border-radius: 12px;
+        color: hsl(215, 15%, 12%);
+        max-width: 1050px;
+        margin: 40px auto 20px auto;
     }
 
-    .section-header {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: bold;
-      padding: 20px;
-      background: #fff;
-      border-radius: 12px;
-
-      color: hsl(215, 15%, 12%);
-      max-width: 1050px;
-      margin: 40px auto 20px auto;
-    }
-
-    .section {
-      margin: 0 auto 40px;
-      max-width: 720px;
-    }
-
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .card-wrapper {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .content {
+        max-width: 1050px;
+        margin: 0 auto 20px ;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
     }
 
     .card {
-      position: relative;
-      flex: 1 1 auto;
-      justify-content: center;
-      align-items: center;
-      box-shadow:
-              rgb(255, 255, 255) 0 2px 0px inset,
-              rgba(232, 234, 238, 0.3) 0px -2px 0px inset,
-              rgba(223, 226, 231, 0.5) 0px 1px 2px 0px;
-
-      color: hsl(215, 15%, 12%);
-      border-radius: 12px;
-      border: 1px solid hsl(215, 15%, 92%);
-      transition:
-              border 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-              box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-              transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-      padding: 28px;
-      background: #fff;
+        text-decoration: none;
+        color: hsl(215, 15%, 12%);
+        display: block;
+        border-radius: 12px;
+        border: 1px solid hsl(215, 15%, 92%);
+        padding: 28px;
+        background: linear-gradient(to bottom right, hsla(210, 100%, 96%, 0.3) 25%, hsla(215, 15%, 97%, 0.2) 100%);
+        transition:
+                border 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+                box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+                transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     }
 
     .card:hover {
-      border-color: hsl(210, 100%, 80%);
-      box-shadow: 0 2px 8px hsl(210, 100%, 90%);
+        transform: scale(1.1);
+        box-shadow: 0px 2px 8px hsl(210, 100%, 90%);
     }
 
-    .card img {
-      width: 80px;
-      height: 80px;
-      overflow: hidden;
-      margin: 0 auto;
-      object-fit: contain;
+    .image-wrapper {
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+        margin: 0 auto;
     }
 
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .title {
+        text-align: center;
+        font-weight: bold;
+        margin-top: 20px;
+        font-size: 1rem;
+    }
+
+    .status {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-left: 5px;
+    }
+
+    .status.up {
+        background-color: green;
+    }
+
+    .status.down {
+        background-color: red;
+    }
+
+    .status.unknown {
+        background-color: orange;
     }
 
     .card-status-links {
-      display: flex;
-      flex-wrap: wrap;
-      column-gap: 20px;
-      padding: 0 20px;
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 20px;
+        padding: 0 20px;
+        justify-content: center;
     }
 
     .card-status-links .status-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      text-decoration: none;
-      color: grey;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        text-decoration: none;
+        color: grey;
     }
 
     .card-status-links .status-item:hover {
-      color: unset;
-      text-decoration: underline;
+        color: unset;
+        text-decoration: underline;
     }
 
     .card-status-links .status-item span {
-      margin-right: 8px;
+        margin-right: 8px;
     }
 
     .card-status-links .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
     }
 
     .loading {
-      background-color: grey;
+        background-color: grey;
     }
 
     .success {
-      background-color: green;
+        background-color: green;
     }
 
     .error {
-      background-color: red;
+        background-color: red;
     }
-  </style>
-</head>
+</style>
 <body>
-<div id="app" class="app">
-  <div v-for="group in cardGroups" :key="group.id" class="section">
-    <h2 class="section-header">{{ group.title }}</h2>
-    <div class="cards">
-      <div
-              v-for="item in group.cards"
-              :key="item.title"
-              class="card-wrapper"
-      >
-        <div class="card">
-          <img :src="item.image" :alt="item.title" />
-          <h3>{{ item.title }}</h3>
-          <a :href="item.link" target="_blank">Visit Portal</a>
+<div id="app">
+    <div v-for="(section, index) in cardSections" :key="index">
+        <div class="title-box">{{ section.title }}</div>
+        <div class="content">
+            <a v-for="(card, index) in section.config" :key="'content-' + index" :href="card.link" target="_blank"
+               class="card">
+                <div class="image-wrapper">
+                    <img :src="card.image" :alt="card.title"/>
+                </div>
+                <div class="title">
+                    {{ card.title }}
+                    <span :class="['status', card.status]"></span>
+                </div>
+            </a>
         </div>
         <div class="card-status-links">
-          <a
-                  v-for="status in item.statusLinks"
-                  :href="status.link"
-                  target="_blank"
-                  :key="status.link"
-                  class="status-item"
-          >
-            <span>{{ status.label }}</span>
-            <div :class="['status-dot', status.state]"></div>
-          </a>
+            <a v-for="(status, index) in section.statuses" :key="'content-2' + index" :href="status.link" target="_blank" class="status-item">
+                <span>{{ status.label }}</span>
+                <div :class="['status-dot', status.state]"></div>
+            </a>
         </div>
-
-        <!-- Rendering Status Links with Fetch Results -->
-      </div>
     </div>
-  </div>
 </div>
 
-<script src="https://unpkg.com/vue@3"></script>
 <script>
-  const app = Vue.createApp({
-    data() {
-      return {
-        cardGroups: [
-          {
-            id: 1,
-            title: "Admin Portals",
-            cards: [
-              {
-                title: "JumpCloud AdminPortal",
-                image:
-                        "https://jumpcloud.com/wp-content/uploads/2023/03/jumpcloud.png",
-                link: "https://console.jumpcloud.com/#/",
-                statusLinks: [
-                  {
-                    link: "https://status.jumpcloud.com",
-                    label: "API Server",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.aws.amazon.com/",
-                    label: "Database",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.aws.amazon.com/",
-                    label: "Cache Service",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.aws.amazon.com/",
-                    label: "Authentication Service",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.aws.amazon.com/",
-                    label: "Messaging Queue",
-                    state: "loading",
-                  },
-                ],
-              },
-              {
-                title: "JumpCloud AdminPortal",
-                image:
-                        "https://jumpcloud.com/wp-content/uploads/2023/03/jumpcloud.png",
-                link: "https://console.jumpcloud.com/#/",
-                statusLinks: [
-                  {
-                    link: "https://status.jumpcloud.com",
-                    label: "API Server",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.aws.amazon.com/",
-                    label: "Messaging Queue",
-                    state: "loading",
-                  },
-                ],
-              },
-              {
-                title: "JumpCloud AdminPortal",
-                image:
-                        "https://jumpcloud.com/wp-content/uploads/2023/03/jumpcloud.png",
-                link: "https://console.jumpcloud.com/#/",
-                statusLinks: [
-                  {
-                    link: "https://status.jumpcloud.com",
-                    label: "API Server",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.aws.amazon.com/",
-                    label: "Database",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.aws.amazon.com/",
-                    label: "Cache Service",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.aws.amazon.com/",
-                    label: "Authentication Service",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.aws.amazon.com/",
-                    label: "Messaging Queue",
-                    state: "loading",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            id: 2,
-            title: "User Portals",
-            cards: [
-              {
-                title: "JumpCloud UserPortal",
-                image:
-                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
-                link: "https://console.jumpcloud.com/userconsole#/",
-                statusLinks: [
-                  {
-                    link: "https://status.jumpcloud.com",
-                    label: "JumpCloud Status",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.google.com",
-                    label: "Google Status",
-                    state: "loading",
-                  },
-                ],
-              },
-              {
-                title: "JumpCloud UserPortal",
-                image:
-                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
-                link: "https://console.jumpcloud.com/userconsole#/",
-                statusLinks: [
-                  {
-                    link: "https://status.jumpcloud.com",
-                    label: "JumpCloud Status",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.google.com",
-                    label: "Google Status",
-                    state: "loading",
-                  },
-                ],
-              },
-              {
-                title: "JumpCloud UserPortal",
-                image:
-                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
-                link: "https://console.jumpcloud.com/userconsole#/",
-                statusLinks: [
-                  {
-                    link: "https://status.jumpcloud.com",
-                    label: "JumpCloud Status",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.google.com",
-                    label: "Google Status",
-                    state: "loading",
-                  },
-                ],
-              },
-              {
-                title: "JumpCloud UserPortal",
-                image:
-                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
-                link: "https://console.jumpcloud.com/userconsole#/",
-                statusLinks: [
-                  {
-                    link: "https://status.jumpcloud.com",
-                    label: "JumpCloud Status",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.google.com",
-                    label: "Google Status",
-                    state: "loading",
-                  },
-                ],
-              },
-              {
-                title: "JumpCloud UserPortal",
-                image:
-                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
-                link: "https://console.jumpcloud.com/userconsole#/",
-                statusLinks: [
-                  {
-                    link: "https://status.jumpcloud.com",
-                    label: "JumpCloud Status",
-                    state: "loading",
-                  },
-                  {
-                    link: "https://status.google.com",
-                    label: "Google Status",
-                    state: "loading",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      };
-    },
-    mounted() {
-      this.cardGroups.forEach((group) => {
-        group.cards.forEach((card) => {
-          card.statusLinks.forEach((statusLink) => {
-            this.fetchStatus(statusLink);
-          });
-        });
-      });
-    },
-    methods: {
-      async fetchStatus(statusLink) {
-        try {
-          // Make the fetch request
-          const response = await fetch(statusLink.link);
+    const {createApp} = Vue;
 
-          // If response is OK (status 2xx), set status to 'success'
-          if (response.ok) {
-            statusLink.state = "success";
-          } else {
-            // Otherwise, set it to 'error'
-            statusLink.state = "error";
-          }
-        } catch (error) {
-          // Handle network errors
-          statusLink.state = "error";
+    createApp({
+        data() {
+            return {
+                cardSections:
+                    [
+                        {
+                            id: 'DevOps Portal',
+                            title: 'DevOps Portal',
+                            statuses: [
+                                {
+                                    link: "https://status.jumpcloud.com",
+                                    label: "API Server",
+                                    state: "loading",
+                                },
+                                {
+                                    link: "https://status.aws.amazon.com/",
+                                    label: "Database",
+                                    state: "loading",
+                                },
+                                {
+                                    link: "https://status.aws.amazon.com/",
+                                    label: "Cache Service",
+                                    state: "loading",
+                                },
+                                {
+                                    link: "https://status.aws.amazon.com/",
+                                    label: "Authentication Service",
+                                    state: "loading",
+                                },
+                                {
+                                    link: "https://status.aws.amazon.com/",
+                                    label: "Messaging Queue",
+                                    state: "loading",
+                                },
+                            ],
+                            config: [
+                                {
+                                    title: "JumpCloud AdminPortal",
+                                    image:
+                                        "https://jumpcloud.com/wp-content/uploads/2023/03/jumpcloud.png",
+                                    link: "https://console.jumpcloud.com/#/",
+                                },
+                                {
+                                    title: "JumpCloud UserPortal",
+                                    image:
+                                        "https://i0.wp.com/securityaffairs.com/wp-content/uploads/2023/07/image-27.png?ssl=1",
+                                    link: "https://console.jumpcloud.com/userconsole#/",
+                                }
+                            ]
+                        },
+                        {
+                            id: 'Data Environment', title: 'Data Environment', statuses: [
+                                {
+                                    link: "https://status.jumpcloud.com",
+                                    label: "API Server",
+                                    state: "loading",
+                                },
+                                {
+                                    link: "https://status.aws.amazon.com/",
+                                    label: "Database",
+                                    state: "loading",
+                                },
+                                {
+                                    link: "https://status.aws.amazon.com/",
+                                    label: "Cache Service",
+                                    state: "loading",
+                                },
+                                {
+                                    link: "https://status.aws.amazon.com/",
+                                    label: "Authentication Service",
+                                    state: "loading",
+                                },
+                                {
+                                    link: "https://status.aws.amazon.com/",
+                                    label: "Messaging Queue",
+                                    state: "loading",
+                                },
+                            ], config: [
+                                {
+                                    title: "Jaeger",
+                                    image:
+                                        "https://www.jaegertracing.io/img/jaeger-icon-reverse-color.svg",
+                                    link: "https://jaeger.data.internal.loora.tech"
+                                },
+                                {
+                                    title: "Prometheus",
+                                    image:
+                                        "https://www.gravatar.com/avatar/63f4dc6944f814f3b2440a3c41dd400b?s=120&r=g&d=404",
+                                    link: "https://prometheus.data.internal.loora.tech"
+                                },
+                                {
+                                    title: "Thanos",
+                                    image:
+                                        "https://i1.daumcdn.net/thumb/C300x300/?fname=https://blog.kakaocdn.net/dn/bTRdIg/btslufCL7gc/38sihyfShQTmELvFOmc5DK/img.png",
+                                    link: "https://thanos.data.internal.loora.tech"
+                                },
+                                {
+                                    title: "AlertManager",
+                                    image:
+                                        "https://play-lh.googleusercontent.com/HhuDvidUsvztQYHv2Ah9PU6xTilfcJvlVqYGGJuxK0U0Tygwns5ZdCRhLxE-Bwf4KQ",
+                                    link: "https://alertmanager.data.internal.loora.tech"
+                                },
+                                {
+                                    title: "Grafana Data",
+                                    image:
+                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grafana_icon.svg/1969px-Grafana_icon.svg.png",
+                                    link: "https://grafana.data.internal.loora.tech",
+                                },
+                                {
+                                    title: "ArgoCD Data",
+                                    image:
+                                        "https://icon.icepanel.io/Technology/svg/Argo-CD.svg",
+                                    link: "https://argocd.data.internal.loora.tech",
+                                },
+                                {
+                                    title: "AirFlow Data",
+                                    image:
+                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/AirflowLogo.png/1200px-AirflowLogo.png",
+                                    link: "https://airflow.data.internal.loora.tech",
+                                },
+                            ]
+                        },
+                        // { id: 'Dev Environment', title: 'Dev Environment', config: this.cardConfig3 },
+                        // { id: 'Staging Environment', title: 'Staging Environment', config: this.cardConfig4 },
+                        // { id: 'Github Actions', title: 'Github Actions', config: this.cardConfig5 }
+                    ],
+            };
+        },
+        mounted() {
+            this.cardSections.forEach((group) => {
+                group.statuses.forEach((statusLink) => {
+                    this.fetchStatus(statusLink);
+                });
+            });
+
+            setTimeout(() => {
+                console.log(this.cardSections)
+            }, 2000)
+        },
+        methods: {
+            async fetchStatus(statusLink) {
+                try {
+                    // Make the fetch request
+                    const response = await fetch(statusLink.link);
+
+
+
+                    // If response is OK (status 2xx), set status to 'success'
+                    if (response.ok) {
+                        statusLink.state = "success";
+                    } else {
+                        // Otherwise, set it to 'error'
+                        statusLink.state = "error";
+                    }
+                } catch (error) {
+                    // Handle network errors
+                    statusLink.state = "error";
+
+                    console.log(statusLink)
+                }
+            },
         }
-      },
-    },
-  });
-
-  app.mount("#app");
+    }).mount('#app');
 </script>
 </body>
 </html>
